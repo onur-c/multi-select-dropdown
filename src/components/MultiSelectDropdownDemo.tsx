@@ -70,7 +70,7 @@ const MultiSelectDropdownDemo = () => {
             setInput(e.target.value);
           }}
         />
-        <div className="mr-2 size-4">
+        <div className="mr-6 size-4">
           {isLoading && (
             <ImSpinner8 className=" animate-spin size-4 opacity-70" />
           )}

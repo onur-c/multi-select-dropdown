@@ -11,7 +11,7 @@ const MultiSelectDropdownContainer = forwardRef<
       {...props}
       ref={ref}
       className={cn(
-        "relative p-2 flex flex-wrap items-center  bg-white border border-black/40 rounded-xl has-[input:focus]:ring-2 max-w-xl",
+        "relative p-2 flex flex-wrap items-center bg-white border border-black/40 rounded-xl has-[input:focus]:ring-2 max-w-xl",
         className
       )}
     >
