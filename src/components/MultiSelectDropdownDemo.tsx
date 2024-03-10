@@ -14,7 +14,7 @@ import {
   MultiSelectDropdownSelectedTagArea,
   MultiSelectDropdownTrigger,
 } from "./ui/MultiselectDropdown";
-import ErrorDropdown from "./ui/ErrorDropdown";
+import ErrorSkeleton from "./ui/ErrorSkeleton";
 import SuccessDropdown from "./SuccessDropdown";
 
 const MultiSelectDropdownDemo = () => {
@@ -88,7 +88,7 @@ const MultiSelectDropdownDemo = () => {
 
       <MultiSelectDropdownModal>
         {isError ? (
-          <ErrorDropdown error={error} />
+          <ErrorSkeleton error={error} />
         ) : isLoading ? (
           <LoadingSkeleton />
         ) : (

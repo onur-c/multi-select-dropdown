@@ -1,4 +1,4 @@
-const ErrorDropdown = ({ error }: { error: Error | null }) => {
+const ErrorSkeleton = ({ error }: { error: Error | null }) => {
   return (
     <div className="p-4 opacity-80">
       <p>Could not find data with what you typed.</p>
@@ -7,4 +7,4 @@ const ErrorDropdown = ({ error }: { error: Error | null }) => {
   );
 };
 
-export default ErrorDropdown;
+export default ErrorSkeleton;

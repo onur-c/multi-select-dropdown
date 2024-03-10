@@ -89,6 +89,7 @@ const MultiSelectDropdownModal = forwardRef<
   ComponentPropsWithoutRef<"div">
 >(({ children, className, ...props }, ref) => {
   const { dropdownOpen, closeDropDown } = useMultiSelectContext();
+
   return (
     <div
       {...props}
@@ -109,8 +110,8 @@ const MultiSelectDropdownModal = forwardRef<
 export {
   MultiSelectDropdownContainer,
   MultiSelectDropdownModal,
-  MultiSelectDropdownTrigger,
   MultiSelectDropdownSearchArea,
-  MultiSelectDropdownSelectedTagArea,
   MultiSelectDropdownSelectedTag,
+  MultiSelectDropdownSelectedTagArea,
+  MultiSelectDropdownTrigger,
 };
