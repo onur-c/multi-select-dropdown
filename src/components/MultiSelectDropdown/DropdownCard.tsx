@@ -25,7 +25,6 @@ const DropdownCard = ({ result, innerRef }: TDropdownCard) => {
         />
         <img
           src={result.image}
-          loading="lazy"
           alt={`Picture of ${result.name}`}
           className="w-10 h-10 rounded-xl"
         />
@@ -47,12 +46,7 @@ const DropdownCard = ({ result, innerRef }: TDropdownCard) => {
           checked={isChecked(result.id)}
           onChange={() => handleCheckbox(result.id, { ...result })}
         />
-        <img
-          src={result.image}
-          alt=""
-          className="w-10 h-10 rounded-xl"
-          loading="lazy"
-        />
+        <img src={result.image} alt="" className="w-10 h-10 rounded-xl" />
         <div>
           <SubstringHighlighter text={result.name} substring={input} />
           <p className="text-slate-500">{result.episode.length} Episodes</p>

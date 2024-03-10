@@ -25,9 +25,6 @@ const useInfiniteFetchCharacter = ({ characterName }: TInfiniteFetch) => {
     queryFn: fetchCharacters,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      // console.log("lastPage", lastPage);
-      // console.log("allPages", allPages);
-
       const maxPages = lastPage.info.pages;
       const nextPage = allPages.length + 1;
 

@@ -16,9 +16,6 @@ const DropdownModal = ({ data, status, error }: TDropdownModal) => {
   const { dropdownOpen, toggleDropDown, closeDropDown } =
     useMultiSelectContext();
 
-  console.log("data", data);
-  console.log("status", status);
-
   return (
     <>
       <div className="flex items-center gap-2">
