@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Inter", sans-serif;
+
+  scrollbar-gutter: stable;
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.scrollable-div::-webkit-scrollbar {
+  border-left: 1px solid #aaa;
+  border-radius: 9999px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 9999px;
+}
+
+.scrollable-div {
+  scroll-behavior: smooth;
+}
