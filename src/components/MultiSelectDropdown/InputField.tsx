@@ -11,7 +11,7 @@ const InputField = ({
 }) => {
   const { input, setInput } = useMultiSelectContext();
   return (
-    <div className="flex items-center flex-1 p-1">
+    <div className="flex items-center justify-between flex-1 p-1">
       <input
         autoFocus
         type="text"
