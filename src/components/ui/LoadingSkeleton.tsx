@@ -1,4 +1,4 @@
-const DropdownSkeleton = () => {
+const LoadingSkeleton = () => {
   return Array(5)
     .fill("")
     .map((_, index) => {
@@ -18,4 +18,4 @@ const DropdownSkeleton = () => {
     });
 };
 
-export default DropdownSkeleton;
+export default LoadingSkeleton;

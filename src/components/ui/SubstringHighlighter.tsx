@@ -8,7 +8,7 @@ const SubstringHighlighter = ({
   const parts = text.split(new RegExp(`(${substring})`, "gi"));
 
   return (
-    <div>
+    <>
       {parts.map((part, index) =>
         part.toLowerCase() === substring.toLowerCase() ? (
           // Highlight the substring
@@ -20,7 +20,7 @@ const SubstringHighlighter = ({
           <span key={index}>{part}</span>
         )
       )}
-    </div>
+    </>
   );
 };
 

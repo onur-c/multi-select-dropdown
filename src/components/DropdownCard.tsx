@@ -1,6 +1,6 @@
-import useMultiSelectContext from "../../hooks/useMultiSelectContext";
-import { CharacterType } from "../../types";
-import SubstringHighlighter from "../SubstringHighlighter";
+import useMultiSelectContext from "../hooks/useMultiSelectContext";
+import { CharacterType } from "../types";
+import SubstringHighlighter from "./ui/SubstringHighlighter";
 
 type TDropdownCard = {
   result: CharacterType;

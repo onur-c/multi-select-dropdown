@@ -1,7 +1,7 @@
 import { InfiniteData } from "@tanstack/react-query";
-import { ApiResponseType } from "../../types";
+import { ApiResponseType } from "../types";
 import DropdownCard from "./DropdownCard";
-import useMultiSelectContext from "../../hooks/useMultiSelectContext";
+import useMultiSelectContext from "../hooks/useMultiSelectContext";
 
 const SuccessDropdown = ({
   data,
