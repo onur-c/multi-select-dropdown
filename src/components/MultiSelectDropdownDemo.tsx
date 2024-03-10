@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { FaCircleExclamation } from "react-icons/fa6";
-import { ImSpinner8 } from "react-icons/im";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RiCloseCircleFill } from "react-icons/ri";
 import useInfiniteFetchCharacter from "../hooks/useInfiniteFetchCharacter";
 import useMultiSelectContext from "../hooks/useMultiSelectContext";
+import SuccessDropdown from "./SuccessDropdown";
+import ErrorSkeleton from "./ui/ErrorSkeleton";
 import LoadingSkeleton from "./ui/LoadingSkeleton";
 import {
   MultiSelectDropdownContainer,
@@ -14,18 +14,10 @@ import {
   MultiSelectDropdownSelectedTagArea,
   MultiSelectDropdownTrigger,
 } from "./ui/MultiselectDropdown";
-import ErrorSkeleton from "./ui/ErrorSkeleton";
-import SuccessDropdown from "./SuccessDropdown";
 
 const MultiSelectDropdownDemo = () => {
-  const {
-    input,
-    inView,
-    selectedCharacters,
-    deleteSelected,
-    setInput,
-    dropdownOpen,
-  } = useMultiSelectContext();
+  const { input, inView, selectedCharacters, deleteSelected, dropdownOpen } =
+    useMultiSelectContext();
 
   const {
     data,
@@ -51,6 +43,7 @@ const MultiSelectDropdownDemo = () => {
         {selectedCharacters?.length > 0 &&
           selectedCharacters.map((selectedChar) => (
             <MultiSelectDropdownSelectedTag
+              key={selectedChar.id}
               onClick={() => deleteSelected(selectedChar.id)}
             >
               <p className="text-sm">{selectedChar.name}</p>
@@ -59,26 +52,8 @@ const MultiSelectDropdownDemo = () => {
           ))}
       </MultiSelectDropdownSelectedTagArea>
 
-      <MultiSelectDropdownSearchArea>
-        <input
-          autoFocus
-          type="text"
-          className="outline-none"
-          placeholder={isLoading ? "Loading..." : "Search..."}
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        />
-        <div className="mr-6 size-4">
-          {isLoading && (
-            <ImSpinner8 className=" animate-spin size-4 opacity-70" />
-          )}
-          {isError && (
-            <FaCircleExclamation className="text-red-600 animate-bounce size-4 opacity-70" />
-          )}
-        </div>
-      </MultiSelectDropdownSearchArea>
+      <MultiSelectDropdownSearchArea isError={isError} isLoading={isLoading} />
+
       <MultiSelectDropdownTrigger>
         <IoMdArrowDropdown
           className={`transition-transform size-6  

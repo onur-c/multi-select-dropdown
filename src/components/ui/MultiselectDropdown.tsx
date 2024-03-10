@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import useMultiSelectContext from "../../hooks/useMultiSelectContext";
 import { cn } from "../../lib/utils";
+import { ImSpinner8 } from "react-icons/im";
+import { FaCircleExclamation } from "react-icons/fa6";
 
 const MultiSelectDropdownContainer = forwardRef<
   HTMLDivElement,
@@ -55,15 +57,36 @@ const MultiSelectDropdownSelectedTag = forwardRef<
 
 const MultiSelectDropdownSearchArea = forwardRef<
   HTMLDivElement,
-  ComponentPropsWithoutRef<"div">
->(({ children, className, ...props }, ref) => {
+  { isLoading: boolean; isError: boolean } & ComponentPropsWithoutRef<"div">
+>(({ children, className, isLoading, isError, ...props }, ref) => {
+  const { input, setInput } = useMultiSelectContext();
   return (
     <div
       {...props}
       ref={ref}
       className={cn("flex items-center justify-between flex-1 p-1", className)}
     >
-      {children}
+      <>
+        {children}
+        <input
+          autoFocus
+          type="text"
+          className="outline-none"
+          placeholder={isLoading ? "Loading..." : "Search..."}
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+        />
+        <div className="mr-6 size-4">
+          {isLoading && (
+            <ImSpinner8 className=" animate-spin size-4 opacity-70" />
+          )}
+          {isError && (
+            <FaCircleExclamation className="text-red-600 animate-bounce size-4 opacity-70" />
+          )}
+        </div>
+      </>
     </div>
   );
 });
