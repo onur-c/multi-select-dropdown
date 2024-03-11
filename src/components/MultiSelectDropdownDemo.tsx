@@ -67,7 +67,7 @@ const MultiSelectDropdownDemo = () => {
         ) : isLoading ? (
           <LoadingSkeleton />
         ) : (
-          isSuccess && <SuccessDropdown data={data!} />
+          isSuccess && <SuccessDropdown data={data} />
         )}
       </MultiSelectDropdownModal>
     </MultiSelectDropdownContainer>
