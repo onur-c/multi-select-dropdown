@@ -112,7 +112,8 @@ const MultiSelectDropdownTrigger = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
 >(({ children, className, ...props }, ref) => {
-  const { toggleDropDown, dropdownOpen } = useMultiSelectContext();
+  const { toggleDropDown, dropdownOpen, closeDropDown } =
+    useMultiSelectContext();
   return (
     <div
       {...props}
@@ -122,7 +123,10 @@ const MultiSelectDropdownTrigger = forwardRef<
         className
       )}
     >
-      <button onClick={toggleDropDown}>
+      <button
+        onClick={toggleDropDown}
+        onKeyUp={(e) => e.key === "Escape" && closeDropDown()}
+      >
         {children || (
           <IoMdArrowDropdown
             className={`transition-transform 
