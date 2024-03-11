@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useMultiSelectContext from "../hooks/useMultiSelectContext";
 import { CharacterType } from "../types";
 import SubstringHighlighter from "./ui/SubstringHighlighter";
@@ -8,8 +9,19 @@ type TDropdownCard = {
 };
 
 const DropdownCard = ({ result, innerRef }: TDropdownCard) => {
-  const { handleCheckbox, isChecked, input } = useMultiSelectContext();
-
+  const {
+    handleCheckbox,
+    isChecked,
+    input,
+    inView,
+    hasNextPage,
+    fetchNextPage,
+  } = useMultiSelectContext();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage]);
   if (innerRef) {
     return (
       <label

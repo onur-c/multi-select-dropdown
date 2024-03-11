@@ -1,6 +1,12 @@
 import { createContext, useCallback, useMemo, useState } from "react";
-import { CharacterType } from "../types";
+import { ApiResponseType, CharacterType } from "../types";
 import { useInView } from "react-intersection-observer";
+import useInfiniteFetchCharacter from "../hooks/useInfiniteFetchCharacter";
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 
 type TMultiSelectContext = {
   input: string;
@@ -19,6 +25,18 @@ type TMultiSelectContext = {
 
   ref: (node?: Element | null | undefined) => void;
   inView: boolean;
+
+  data: InfiniteData<ApiResponseType, unknown> | undefined;
+  hasNextPage: boolean;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<
+    InfiniteQueryObserverResult<InfiniteData<ApiResponseType, unknown>, Error>
+  >;
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  error: Error | null;
 };
 
 export const MultiSelectContext = createContext<TMultiSelectContext | null>(
@@ -66,8 +84,25 @@ export const MultiSelectContextProvider = ({
     [selectedCharacters]
   );
 
+  const {
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+  } = useInfiniteFetchCharacter({ characterName: input });
+
   const value = useMemo(
     () => ({
+      data,
+      hasNextPage,
+      fetchNextPage,
+      isLoading,
+      isError,
+      isSuccess,
+      error,
       input,
       setInput,
       selectedCharacters,
@@ -90,6 +125,13 @@ export const MultiSelectContextProvider = ({
       ref,
       inView,
       deleteSelected,
+      data,
+      hasNextPage,
+      fetchNextPage,
+      error,
+      isLoading,
+      isError,
+      isSuccess,
     ]
   );
 

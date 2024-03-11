@@ -1,20 +1,27 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { FaCircleExclamation } from "react-icons/fa6";
+import { ImSpinner8 } from "react-icons/im";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { RiCloseCircleFill } from "react-icons/ri";
 import useMultiSelectContext from "../../hooks/useMultiSelectContext";
 import { cn } from "../../lib/utils";
-import { ImSpinner8 } from "react-icons/im";
-import { FaCircleExclamation } from "react-icons/fa6";
+import SuccessDropdown from "../SuccessDropdown";
+import ErrorSkeleton from "./ErrorSkeleton";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 const MultiSelectDropdownContainer = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
 >(({ children, className, ...props }, ref) => {
+  const { isError } = useMultiSelectContext();
   return (
     <div
       {...props}
       ref={ref}
       className={cn(
         "relative p-2 flex flex-wrap items-center bg-white border border-black/40 rounded-xl has-[input:focus]:ring-2 max-w-xl",
-        className
+        className,
+        isError && "ring-red-600 ring-2 ring-opacity-50"
       )}
     >
       {children}
@@ -25,14 +32,24 @@ const MultiSelectDropdownContainer = forwardRef<
 const MultiSelectDropdownSelectedTagArea = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
->(({ children, className, ...props }, ref) => {
+>(({ className, ...props }, ref) => {
+  const { selectedCharacters, deleteSelected } = useMultiSelectContext();
   return (
     <div
       {...props}
       ref={ref}
       className={cn("flex flex-wrap items-center gap-1", className)}
     >
-      {children}
+      {selectedCharacters?.length > 0 &&
+        selectedCharacters.map((selectedChar) => (
+          <MultiSelectDropdownSelectedTag
+            key={selectedChar.id}
+            onClick={() => deleteSelected(selectedChar.id)}
+          >
+            <p className="text-sm">{selectedChar.name}</p>
+            <RiCloseCircleFill className="text-slate-500 size-5" />
+          </MultiSelectDropdownSelectedTag>
+        ))}
     </div>
   );
 });
@@ -57,9 +74,9 @@ const MultiSelectDropdownSelectedTag = forwardRef<
 
 const MultiSelectDropdownSearchArea = forwardRef<
   HTMLDivElement,
-  { isLoading: boolean; isError: boolean } & ComponentPropsWithoutRef<"div">
->(({ children, className, isLoading, isError, ...props }, ref) => {
-  const { input, setInput } = useMultiSelectContext();
+  ComponentPropsWithoutRef<"div">
+>(({ children, className, ...props }, ref) => {
+  const { input, setInput, isLoading, isError } = useMultiSelectContext();
   return (
     <div
       {...props}
@@ -95,14 +112,24 @@ const MultiSelectDropdownTrigger = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
 >(({ children, className, ...props }, ref) => {
-  const { toggleDropDown } = useMultiSelectContext();
+  const { toggleDropDown, dropdownOpen } = useMultiSelectContext();
   return (
     <div
       {...props}
       ref={ref}
-      className={cn("flex items-center gap-2 absolute right-2", className)}
+      className={cn(
+        "flex items-center justify-center gap-2 absolute right-2  size-5",
+        className
+      )}
     >
-      <button onClick={toggleDropDown}>{children}</button>
+      <button onClick={toggleDropDown}>
+        {children || (
+          <IoMdArrowDropdown
+            className={`transition-transform 
+          ${dropdownOpen ? "rotate-180 " : ""}`}
+          />
+        )}
+      </button>
     </div>
   );
 });
@@ -111,7 +138,8 @@ const MultiSelectDropdownModal = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
 >(({ children, className, ...props }, ref) => {
-  const { dropdownOpen, closeDropDown } = useMultiSelectContext();
+  const { dropdownOpen, closeDropDown, isError, isLoading, isSuccess, error } =
+    useMultiSelectContext();
 
   return (
     <div
@@ -125,7 +153,16 @@ const MultiSelectDropdownModal = forwardRef<
         className
       )}
     >
-      {children}
+      <>
+        {children}
+        {isError ? (
+          <ErrorSkeleton error={error} />
+        ) : isLoading ? (
+          <LoadingSkeleton />
+        ) : (
+          isSuccess && <SuccessDropdown />
+        )}
+      </>
     </div>
   );
 });

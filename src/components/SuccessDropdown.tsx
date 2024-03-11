@@ -1,16 +1,10 @@
-import { InfiniteData } from "@tanstack/react-query";
-import { ApiResponseType } from "../types";
-import DropdownCard from "./DropdownCard";
 import useMultiSelectContext from "../hooks/useMultiSelectContext";
+import DropdownCard from "./DropdownCard";
 
-const SuccessDropdown = ({
-  data,
-}: {
-  data: InfiniteData<ApiResponseType, unknown>;
-}) => {
-  const { input, ref } = useMultiSelectContext();
+const SuccessDropdown = () => {
+  const { input, ref, data } = useMultiSelectContext();
 
-  return data.pages.map((page) =>
+  return data!.pages.map((page) =>
     page.results
       .filter((result) => {
         return result.name.toLowerCase().includes(input.toLowerCase());
